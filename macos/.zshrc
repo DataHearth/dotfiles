@@ -70,9 +70,10 @@ ZSH_THEME="typewritten"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git npm vscode golang flutter dotnet gpg-agent docker docker-compose command-not-found brew heroku node nvm
-	tmux zsh_reload kubectl
+	tmux zsh_reload
 )
 
+fpath+=~/.zfunc
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -102,7 +103,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # Flutter configuration
-export PATH="$PATH:$HOME/flutter/bin"
+export PATH=$PATH:$HOME/flutter/bin
 
 # Golang configuration
 export GOBIN=/Users/antoine/go/bin
@@ -145,8 +146,12 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
-# HOMEBREW
-export PATH="/usr/local/sbin:$PATH"
-
 # LOCAL BINARIES
 export PATH="$PATH:$HOME/.local/bin"
+
+# completion
+source <(helm completion zsh)
+source <(kubectl completion zsh)
+
+# Rust
+export PATH=$PATH:$HOME/.cargo/bin
